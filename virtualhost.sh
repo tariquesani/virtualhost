@@ -3,19 +3,22 @@
 TEXTDOMAIN=virtualhost
 
 ### User definable stuff
-owner=$(who am i | awk '{print $1}')
+#owner=$(who am i | awk '{print $1}')
+owner='tariquesani'
 email='webmaster@localhost'
-userDir='/var/www/'
+userDir='/home/tariquesani/www/'
 
 ### Set default parameters, mostly need not change 
 sitesEnable='/etc/apache2/sites-enabled/'
 sitesAvailable='/etc/apache2/sites-available/'
-sitesAvailabledomain=$sitesAvailable$domain.conf
+
 
 ### don't modify from here unless you know what you are doing ####
 action=$1
 domain=$2
 rootDir=$3
+
+sitesAvailabledomain=$sitesAvailable$domain.conf
 
 if [ "$(whoami)" != 'root' ]; then
 	echo $"You have no permission to run $0 as non-root user. Use sudo"
@@ -60,12 +63,12 @@ if [ "$action" == 'create' ]
 			### give permission to root dir
 			chmod 755 $rootDir
 			### write test file in the new domain dir
-			if ! echo "<?php echo phpinfo(); ?>" > $rootDir/phpinfo.php
+			if ! echo "<?php echo phpinfo(); ?>" > $rootDir/index.php
 			then
-				echo $"ERROR: Not able to write in file $rootDir/phpinfo.php. Please check permissions"
+				echo $"ERROR: Not able to write in file $rootDir/index.php. Please check permissions"
 				exit;
 			else
-				echo $"Added content to $rootDir/phpinfo.php"
+				echo $"Added content to $rootDir/index.php"
 			fi
 		fi
 
