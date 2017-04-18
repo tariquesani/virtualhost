@@ -10,12 +10,15 @@ userDir='/var/www/'
 ### Set default parameters, mostly need not change 
 sitesEnable='/etc/apache2/sites-enabled/'
 sitesAvailable='/etc/apache2/sites-available/'
-sitesAvailabledomain=$sitesAvailable$domain.conf
+
 
 ### don't modify from here unless you know what you are doing ####
 action=$1
 domain=$2
 rootDir=$3
+
+sitesAvailabledomain=$sitesAvailable$domain.conf
+
 
 if [ "$(whoami)" != 'root' ]; then
 	echo $"You have no permission to run $0 as non-root user. Use sudo"
